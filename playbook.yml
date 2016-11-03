@@ -1,0 +1,8 @@
+---
+- hosts: all
+  vars:
+    zabbix_host_macros:
+      - name: TEST_MACRO
+        value: TEST_VALUE
+  roles:
+    - role: ansible-zabbix-add

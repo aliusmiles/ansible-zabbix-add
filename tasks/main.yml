@@ -1,0 +1,42 @@
+---
+# tasks file for ansible-zabbix-add
+- name: Add host groups to zabbix
+  local_action:
+    module: zabbix_group
+    server_url: "{{ zabbix_url }}"
+    login_user: "{{ zabbix_admin_user }}"
+    login_password: "{{ zabbix_admin_password }}"
+    host_groups: "{{ zabbix_host_groups }}"
+  become: false
+  tags: zabbix-groups
+
+- name: Add host to zabbix
+  local_action:
+    module: zabbix_host
+    server_url: "{{ zabbix_url }}"
+    login_user: "{{ zabbix_admin_user }}"
+    login_password: "{{ zabbix_admin_password }}"
+    host_name: "{{ zabbix_hostname }}"
+    host_groups: "{{ zabbix_host_groups }}"
+    status: enabled
+    state: present
+    proxy: "{{ zabbix_proxy }}"
+    inventory_mode: automatic
+    link_templates: "{{ zabbix_host_templates }}"
+    interfaces: "{{ zabbix_host_interfaces }}"
+  become: false
+  tags: zabbix-hosts
+
+- name: Add macros
+  local_action:
+    module: zabbix_hostmacro
+    server_url: "{{ zabbix_url }}"
+    login_user: "{{ zabbix_admin_user }}"
+    login_password: "{{ zabbix_admin_password }}"
+    host_name: "{{ zabbix_hostname }}"
+    macro_name: "{{ item.name }}"
+    macro_value: "{{ item.value }}"
+  with_items: "{{ zabbix_host_macros }}"
+  when: "{{ zabbix_host_macros | length > 0 }}"
+  become: false
+  tags: zabbix-macros

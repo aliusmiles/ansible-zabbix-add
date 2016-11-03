@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Taras Bondarchuk
+  description: Role for adding host to zabbix
+  license: MIT
+  min_ansible_version: 2.2
+  platforms:
+  - name: EL
+    versions:
+    - 6
+    - 7
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+  galaxy_tags: []
+
+dependencies: []

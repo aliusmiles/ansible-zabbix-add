@@ -1,0 +1,18 @@
+---
+driver:
+  name: docker
+
+docker:
+  containers:
+
+    - name: ansible-zabbix-add-host1
+      image: ubuntu
+      image_version: xenial
+      ansible_groups:
+        - test-group1
+
+    - name: ansible-zabbix-add-host2
+      image: ubuntu
+      image_version: xenial
+      ansible_groups:
+        - test-group2

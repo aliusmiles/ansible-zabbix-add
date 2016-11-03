@@ -1,0 +1,12 @@
+---
+# vars file for ansible-zabbix-add
+zabbix_url: "{{ 'https' if zabbix_server_https else 'http' }}://{{ zabbix_server }}"
+
+# https://www.zabbix.com/documentation/3.0/manual/api/reference/hostinterface/object
+zabbix_host_interfaces:
+  - type: 1
+    main: 1
+    useip: "{{ 0 if zabbix_use_dns else 1 }}"
+    ip: "{{ zabbix_host_ip }}"
+    dns: "{{ zabbix_hostname }}"
+    port: 10050
